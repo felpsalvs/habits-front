@@ -43,7 +43,7 @@ export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
 
     if (isHabitAlreadyCompleted) {
       completedHabits = habitsInfo!.completedHabits.filter(
-        (id) => (id /= habitId)
+        (id) => id !== habitId
       );
     } else {
       completedHabits = [...habitsInfo!.completedHabits, habitId];
