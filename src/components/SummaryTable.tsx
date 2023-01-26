@@ -4,12 +4,13 @@ import { HabitDay } from "./HabitDay";
 import { api } from "../lib/axios";
 import dayjs from "dayjs";
 
-const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
-
-const summaryDates = generateDatesFromYearBeginning();
-
-const minimumSummaryDatesSize = 18 * 7;
-const amountOfDaysToFill = minimumSummaryDatesSize - summaryDates.length;
+const weekDays = ['Domingo',
+'Segunda',
+'Terça',
+'Quarta',
+'Quinta',
+'Sexta',
+'Sábado',];
 
 type Summary = {
   id: string;
@@ -17,6 +18,10 @@ type Summary = {
   amount: number;
   completed: number;
 }[];
+
+const summaryDates = generateDatesFromYearBeginning();
+const minimumSummaryDatesSize = 18 * 7;
+const amountOfDaysToFill = minimumSummaryDatesSize - summaryDates.length;
 
 export function SummaryTable() {
   const [summary, setSummary] = useState<Summary>([]);
@@ -43,7 +48,7 @@ export function SummaryTable() {
       </div>
 
       <div className="grid grid-rows-7 grid-flow-col gap-3">
-        {summary.length > 0 &&
+        {summary.length &&
           summaryDates.map((date) => {
             const dayInSummary = summary.find((day) => {
               return dayjs(date).isSame(day.date, "day");
