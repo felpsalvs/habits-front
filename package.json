@@ -19,6 +19,7 @@
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.0",
     "react-toast": "^1.0.3",
     "react-toast-component": "^1.4.18",
     "react-toastify": "^9.1.1"
