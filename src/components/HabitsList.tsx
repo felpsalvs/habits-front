@@ -31,14 +31,15 @@ export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
       .then((response) => {
         setHabitsInfo(response.data);
       });
-  }, []);
+  }, [date]);
 
   async function handleToggleHabit(habitId: string) {
-    await api.patch(`/habit/${habitId}/toggle`);
-
+    
     const isHabitAlreadyCompleted =
-      habitsInfo!.completedHabits.includes(habitId);
-
+    habitsInfo!.completedHabits.includes(habitId);
+    
+    await api.patch(`/habit/${habitId}/toggle`);
+    
     let completedHabits: string[] = [];
 
     if (isHabitAlreadyCompleted) {
@@ -67,7 +68,7 @@ export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
             key={habit.id}
             disabled={isDateInPast}
             onCheckedChange={() => handleToggleHabit(habit.id)}
-            checked={habitsInfo?.completedHabits.includes(habit.id)}
+            checked={habitsInfo.completedHabits.includes(habit.id)}
             className="flex items-center gap-3 group focus: outline-none disabled:cursor-not-allowed"
           >
             <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500 transition-colors group-focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 focus:ring-offset-background">
