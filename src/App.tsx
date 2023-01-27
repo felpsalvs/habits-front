@@ -3,6 +3,8 @@ import "./styles/global.css";
 import "./lib/dayjs";
 import { SummaryTable } from "./components/SummaryTable";
 
+navigator.serviceWorker.register("/sw.js");
+
 export function App() {
   return (
     <div className="w-screen h-screen flex justify-center items-center">
