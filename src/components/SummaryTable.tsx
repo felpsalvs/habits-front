@@ -4,13 +4,7 @@ import { HabitDay } from "./HabitDay";
 import { api } from "../lib/axios";
 import dayjs from "dayjs";
 
-const weekDays = ['Domingo',
-'Segunda',
-'Terça',
-'Quarta',
-'Quinta',
-'Sexta',
-'Sábado',];
+const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
 type Summary = {
   id: string;
