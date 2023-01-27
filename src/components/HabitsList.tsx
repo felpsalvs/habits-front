@@ -4,7 +4,7 @@ import { Check } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { api } from "../lib/axios";
 
-interface HabitsListProps {
+interface HabitLisProps {
   date: Date;
   onCompletedChanged: (completed: number) => void;
 }
@@ -18,7 +18,7 @@ interface HabitsInfo {
   completedHabits: string[];
 }
 
-export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
+export function HabitsList({ date, onCompletedChanged }: HabitLisProps) {
   const [habitsInfo, setHabitsInfo] = useState<HabitsInfo>();
 
   useEffect(() => {
@@ -31,15 +31,14 @@ export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
       .then((response) => {
         setHabitsInfo(response.data);
       });
-  }, [date]);
+  }, []);
 
   async function handleToggleHabit(habitId: string) {
-    
     const isHabitAlreadyCompleted =
-    habitsInfo!.completedHabits.includes(habitId);
-    
-    await api.patch(`/habit/${habitId}/toggle`);
-    
+      habitsInfo!.completedHabits.includes(habitId);
+
+    await api.patch(`/habits/${habitId}/toggle`);
+
     let completedHabits: string[] = [];
 
     if (isHabitAlreadyCompleted) {
@@ -66,18 +65,18 @@ export function HabitsList({ date, onCompletedChanged }: HabitsListProps) {
         return (
           <Checkbox.Root
             key={habit.id}
-            disabled={isDateInPast}
             onCheckedChange={() => handleToggleHabit(habit.id)}
             checked={habitsInfo.completedHabits.includes(habit.id)}
-            className="flex items-center gap-3 group focus: outline-none disabled:cursor-not-allowed"
+            disabled={isDateInPast}
+            className="flex items-center gap-3 group focus:outline-none disabled:cursor-not-allowed"
           >
-            <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500 transition-colors group-focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 focus:ring-offset-background">
+            <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-zinc-900 border-2 border-zinc-800 group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-50 transition-colors group-focus:ring-2 group-focus:ring-violet-600 group-focus:ring-offset-2 group-focus:ring-offset-background">
               <Checkbox.Indicator>
                 <Check size={20} className="text-white" />
               </Checkbox.Indicator>
             </div>
 
-            <span className="text-white font-semibold text-xl leading-tight group-data-[state=checked]:line-through group-data-[state=checked]:text-zinc-400">
+            <span className="font-semibold text-xl text-white leading-tight group-data-[state=checked]:line-through group-data-[state=checked]:text-zinc-400">
               {habit.title}
             </span>
           </Checkbox.Root>
