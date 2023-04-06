@@ -4,7 +4,7 @@ import { Header } from "./components/Header";
 import { api } from "./lib/axios";
 import { SummaryTable } from "./components/SummaryTable";
 
-navigator.serviceWorker.register("/sw.js").then(async (serviceWorker) => {
+navigator.serviceWorker.register("/sw.js").then(async serviceWorker => {
   let subscription = await serviceWorker.pushManager.getSubscription();
 
   if (!subscription) {
