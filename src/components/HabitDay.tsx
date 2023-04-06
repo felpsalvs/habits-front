@@ -11,20 +11,24 @@ interface HabitDayProps {
   amount?: number;
 }
 
-export function HabitDay({
+export const HabitDay = ({
   defaultCompleted = 0,
   amount = 0,
   date,
-}: HabitDayProps) {
+}: HabitDayProps) => {
   const [completed, setCompleted] = useState(defaultCompleted);
 
   const comlpetedPercentage =
     amount > 0 ? Math.round((completed / amount) * 100) : 0;
 
+  const today = dayjs().startOf("day").toDate();
+  const isCurrentDay = dayjs(date).isSame(today);
+
   const dayAndMonth = dayjs(date).format("DD/MM");
   const dayOfWeek = dayjs(date).format("dddd");
 
   function handleCompletedChaged(completed: number) {
+    console.log(completed, "aq tb");
     setCompleted(completed);
   }
 
@@ -44,6 +48,7 @@ export function HabitDay({
             "bg-violet-600 border-violet-500":
               comlpetedPercentage >= 60 && comlpetedPercentage < 80,
             "bg-violet-500 border-violet-400": comlpetedPercentage >= 80,
+            "border-white border-4": isCurrentDay,
           }
         )}
       />
@@ -64,4 +69,4 @@ export function HabitDay({
       </Popover.Portal>
     </Popover.Root>
   );
-}
+};
